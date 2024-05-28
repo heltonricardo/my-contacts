@@ -33,7 +33,12 @@ export default function App() {
       </head>
       <body>
         <div id="sidebar">
-          <h1>Remix Contacts</h1>
+          <h1>
+            <b>My Contacts •</b>&nbsp;
+            <a href="https://github.com/heltonricardo/" target="_blank" rel="noreferrer">
+              Helton Ricardo
+            </a>
+          </h1>
           <div>
             <Form id="search-form" role="search">
               <input
