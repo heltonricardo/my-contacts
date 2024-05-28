@@ -10,15 +10,20 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
+import { createEmptyContact, getContacts } from "~/data";
 import appStylesHref from "./app.css?url";
-import { getContacts } from "./data";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: appStylesHref }];
 
-export async function loader() {
+export const loader = async () => {
   const contacts = await getContacts();
   return json({ contacts });
-}
+};
+
+export const action = async () => {
+  const contact = await createEmptyContact();
+  return json({ contact });
+};
 
 export default function App() {
   const { contacts } = useLoaderData<typeof loader>();
