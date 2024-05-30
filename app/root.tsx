@@ -10,6 +10,7 @@ import {
   ScrollRestoration,
   useLoaderData,
   useNavigation,
+  useSubmit,
 } from "@remix-run/react";
 import { useEffect } from "react";
 import { createEmptyContact, getContacts } from "~/data";
@@ -30,8 +31,9 @@ export const action = async () => {
 };
 
 export default function App() {
-  const { contacts, q } = useLoaderData<typeof loader>();
+  const submit = useSubmit();
   const navigation = useNavigation();
+  const { contacts, q } = useLoaderData<typeof loader>();
 
   useEffect(() => {
     const searchField = document.getElementById("q");
@@ -52,7 +54,7 @@ export default function App() {
         <div id="sidebar">
           <h1>My Contacts</h1>
           <div>
-            <Form id="search-form" role="search">
+            <Form id="search-form" role="search" onChange={(event) => submit(event.currentTarget)}>
               <input
                 id="q"
                 name="q"
