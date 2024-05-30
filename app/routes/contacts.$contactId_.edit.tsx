@@ -1,6 +1,6 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { Form, useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData, useNavigate } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getContact, updateContact } from "~/data";
 
@@ -22,6 +22,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 };
 
 export default function EditContact() {
+  const navigate = useNavigate();
   const { contact } = useLoaderData<typeof loader>();
 
   return (
@@ -29,18 +30,18 @@ export default function EditContact() {
       <p>
         <span>Name</span>
         <input
-          defaultValue={contact.first}
-          aria-label="First name"
-          name="first"
           type="text"
+          name="first"
           placeholder="First"
+          aria-label="First name"
+          defaultValue={contact.first}
         />
         <input
+          name="last"
+          type="text"
+          placeholder="Last"
           aria-label="Last name"
           defaultValue={contact.last}
-          name="last"
-          placeholder="Last"
-          type="text"
         />
       </p>
       <label>
@@ -50,11 +51,11 @@ export default function EditContact() {
       <label>
         <span>Avatar URL</span>
         <input
+          type="text"
+          name="avatar"
           aria-label="Avatar URL"
           defaultValue={contact.avatar}
-          name="avatar"
           placeholder="https://example.com/avatar.jpg"
-          type="text"
         />
       </label>
       <label>
@@ -63,7 +64,9 @@ export default function EditContact() {
       </label>
       <p>
         <button type="submit">Save</button>
-        <button type="button">Cancel</button>
+        <button onClick={() => navigate(-1)} type="button">
+          Cancel
+        </button>
       </p>
     </Form>
   );
