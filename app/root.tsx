@@ -1,4 +1,4 @@
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import {
   Form,
@@ -16,8 +16,10 @@ import appStylesHref from "./app.css?url";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: appStylesHref }];
 
-export const loader = async () => {
-  const contacts = await getContacts();
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q");
+  const contacts = await getContacts(q);
   return json({ contacts });
 };
 
@@ -50,10 +52,10 @@ export default function App() {
             <Form id="search-form" role="search">
               <input
                 id="q"
-                aria-label="Search contacts"
-                placeholder="Search"
-                type="search"
                 name="q"
+                type="search"
+                placeholder="Search"
+                aria-label="Search contacts"
               />
               <div id="search-spinner" aria-hidden hidden={true} />
             </Form>
