@@ -48,10 +48,10 @@ export default function Contact() {
           <Favorite contact={contact} />
         </h1>
 
-        {contact.twitter ? (
+        {contact.github ? (
           <p>
-            <a href={`https://twitter.com/${contact.twitter}`} target="_blank" rel="noreferrer">
-              {contact.twitter}
+            <a href={`https://github.com/${contact.github}`} target="_blank" rel="noreferrer">
+              @{contact.github}
             </a>
           </p>
         ) : null}

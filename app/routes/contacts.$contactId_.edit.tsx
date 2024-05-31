@@ -45,8 +45,8 @@ export default function EditContact() {
         />
       </p>
       <label>
-        <span>Twitter</span>
-        <input defaultValue={contact.twitter} name="twitter" placeholder="@jack" type="text" />
+        <span>GitHub</span>
+        <input defaultValue={contact.github} name="github" placeholder="@jack" type="text" />
       </label>
       <label>
         <span>Avatar URL</span>
